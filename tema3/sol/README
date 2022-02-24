@@ -1,0 +1,45 @@
+Becheanu Daniela Elena - 334CA
+Tema 3 - APD
+
+Am tratat inca de la inceput cazul de eraore, astfel legatura dintre 0 si 1 nu
+exista, ei comunicand numai prin intermediul coordonatorului 2
+Programul functioneaza in felul urmator:
+
+[STABILIREA TOPOLOGIEI]
+* coordonatorii 0, 1 si 2 o sa citeasca din fisierele corespunzatoare
+    lor folosind functia read_input_file, iar acum toti coordonatorii o sa isi
+    cunoasca workerii asignati
+* coordonatorul 2 trimite numarul sau de workeri (size2) catre coordonatorii
+    0 si 1, apoi le primeste pe cele trimise de ei, ulterior trimitand size0
+    coordonatorului 1 si size1 coordonatorului 0
+* se procedeaza similar pentru vectorii ce contin indicii workerilor (cluster0.
+    cluster1 si cluster2)
+* acum toti coordonatorii cunosc intreaga topologie, creeaza string-ul
+    corespunzator topologiei, il printeaza si il trimit mai departe catre
+    workerii lor, trimitand mai intai lungimea string-ului
+* workerii primesc lungimea topologiei sub forma de string (fiecare isi va salva
+    si coordonatorul curespunzator), apoi primesc string-ul si il afiseaza
+
+[REALIZAREA CALCULELOR]
+* se creeaza vectorul cu specificatiile din enunt, iar, pentru usurinta
+    realizarii impartirii portiunilor de vector pentru fiecare worker
+* se trimite indexul de start (strat_index), lungime portiunii din vector
+    (v_portion_length) si portiunea din vector (v_portion) corespunzatoare
+    clusterelor 1 si 2 catre coordonatorul 2, care prima data va primi
+    detaliile pentru cluster1 si i le va trimite, apoi pentur clusterul
+    corespunzator lui
+* se trimit specificatiile pentru fiecare worker de catre coordonatorii lor
+* workerii primesc specificatiile si inmultesc portiunea din vector asignata,
+    dupa care o trimit inapoi la coordonatorii corespunzatori
+* coordonatorii primesc portiunile de vector de la workerii lor, iar
+    coordonatorul 2 le trimite catre 0 mai intai pe ale sale, dupa care le
+    primeste pe cele ale lui 1, pe care le trimite mai departe la 0
+* coordonatorul 0 reasambleaza vectorul cu bucatile corespunzatoare celorlaltor
+    doua clustere primite de la coordonatorul 2
+* la final, dupa ce toate procesele au lucrat spre obtinerea vectorului cu
+    elementele dublate, sunt oprite folosind o bariera, dupa care coordonatorul
+    0 printeaza rezultatul obtinut
+
+[BONUS]
+* deoarece primele doua task-uri a fost realizate ignorand legatura dintre
+    coordonatorii 0 si 1, bonusul este satisfacut
